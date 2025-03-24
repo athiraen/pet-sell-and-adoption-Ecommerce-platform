@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+ 
+
+<link rel="stylesheet" href="{% static 'css/pr_details.css' %}">
+
+<!-- Single Product Container -->
+<div class="container single-product">
+    <div class="row">
+        <!-- Left: Product Image & Thumbnails -->
+        <div class="col-lg-6">
+            <div class="product-main-image">
+                {% if product.pet_photos %}
+                <img id="mainImage" src="{{ product.pet_photos.url }}" alt="{{ product.pet_name }}" class="img-fluid">
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Right: Product Details -->
+        <div class="col-lg-6 product-details">
+            <p><a href="{% url 'index' %}">🏠 Home</a> / Adoption</p>
+            <h1>{{ product.pet_name }}</h1>
+            <!-- Add to Cart or Sold Out -->
+            {% if product.product_status == 'Stock Out' %}
+            <button class="sold-out">❌ Sold Out</button>
+            {% else %}
+            <a href="{% url 'adoption_request' product.id %}" class="cart-btn">Request</a>
+            {% endif %}
+
+            <!-- Product Attributes -->
+
+            <div class="product-attributes">
+                <div class="attribute"><strong>Breed:</strong> {{ product.pet_breed }}</div>
+                <div class="attribute"><strong>Age:</strong> {{ product.pet_age }} years</div>
+                <div class="attribute"><strong>Gender:</strong> {{ product.pet_gender }}</div>
+                <div class="attribute"><strong>Color:</strong> {{ product.pet_color }}</div>
+                <div class="attribute"><strong>Vaccinated:</strong> 
+                    {% if product.vaccinated %} ✅ Yes {% else %} ❌ No {% endif %}
+                </div>
+            </div>
+            <div>
+            <h3>Reason:</h3>
+            <p>{{ product.reason }}</p>
+
+            <h3>Pet Details:</h3>                        
+            <p>{{ product.pet_details }}</p>
+        </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- JavaScript for Image Switching -->
+<script>
+    function changeImage(smallImg) {
+        document.getElementById("mainImage").src = smallImg.src;
+    }
+</script>
+
+
+{% endblock %}

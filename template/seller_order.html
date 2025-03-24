@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Orders Details</h1>
+<form method="GET">
+    <label for="status">Filter by Status:</label>
+    <select name="status" id="status" onchange="this.form.submit()">
+        <option value="">All</option>
+        <option value="Order Processing" {% if status_filter == "Order Processing" %}selected{% endif %}>Order Processing</option>
+        <option value="confirm" {% if status_filter == "confirm" %}selected{% endif %}>confirm</option>
+        <option value="Cancelled" {% if status_filter == "Cancelled" %}selected{% endif %}>Cancelled</option>
+        <option value="Delivered" {% if status_filter == "Delivered" %}selected{% endif %}>Delivered</option>
+    </select>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Address</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Status Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+            {% for item in order.items.all %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.user.username }}</td>
+                <td>
+                    {% if order.user.address %}
+                        {{ order.user.address.building_name }}, 
+                        {{ order.user.address.area }}, 
+                        {{ order.user.address.city }}
+                    {% endif %}
+                </td>
+                
+                <td>
+                    <div class="cart-info">
+                            <img src="{{ item.product.product_photos.url }}">
+                        <div>
+                            <p>{{ item.product.product_name }}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ order.total_price }}</td>
+                <td>{{ order.status }}</td>
+                <td>
+                    <a href="{% url 'update_order_status' order.id %}">Update Status</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% empty %}
+        <tr>
+            <td colspan="7">No orders found for this seller.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

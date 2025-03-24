@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/upf.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit_pro.css' %}">
+
+<div class="profile-info">
+    <h1 style="text-align: center;">Edit Profile</h1>
+    <div class="msg">
+        {% for message in messages %}
+            <h3 style="font-size: 18px;color: rgb(47, 217, 24); ">{{ message }}</h3>
+        {% endfor %}
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="150">
+       
+        {% else %}
+            <p> no profile photo </p>
+        {% endif %}
+
+        <div>
+            <label for="id_profile_picture">Change Profile Picture:</label><br>
+            <input type="file" name="profile_picture" id="id_profile_picture">
+        </div>
+
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_first_name">Name:</label>
+            <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ user.first_name }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" id="id_username" class="form-control" value="{{ user.username }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" id="id_email" class="form-control" value="{{ user.email }}">
+        </div>
+            <div class="buttonupdate">
+                <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Update</button>
+            </div>
+
+    </form>
+
+    <div class="msg">
+        {% for message in messages %}
+            <h3 style="font-size: 18px;color: rgb(47, 217, 24);">
+                {{ message }}
+            </h3>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

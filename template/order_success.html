@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/order_success.html' %}">
+
+<div class="success-container">
+    <h2>Order Confirmed!</h2>
+    <p>Your order has been placed successfully.</p>
+    <div class="btn-group">
+        <a href="{% url 'index' %}" class="btn">Go Back to Home</a>
+        <a href="{% url 'order_history' %}" class="btn">Order Details</a>
+    </div>
+</div>
+
+{% endblock %}

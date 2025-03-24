@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/address.css' %}">
+
+<div class="address-book-container">
+  <h2 class="address-book-title">ADDRESS BOOK</h2>
+  <a href="{% url 'add_address' %}" class="add-address-btn">ADD NEW ADDRESS</a>
+  <div class="address-list">
+    {% for address in addresses %}
+    <div class="address-card">
+      <div class="address-header">
+        <strong>{{ address.building_name }}</strong>
+        <div class="address-actions">
+          <a href="{% url 'edit_address' address.id %}" class="edit-btn">✎</a>
+          <a href="{% url 'delete_address' address.id %}" class="delete-btn">🗑️</a>
+        </div>
+      </div>
+      <p>{{ address.area }}</p>
+      <p>{{ address.city }}, {{ address.state }} - {{ address.zip }}</p>
+      {% if address.default %}
+      <p class="default-label">This is your default delivery address</p>
+      {% endif %}
+    </div>
+    {% empty %}
+    <p>No addresses found.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

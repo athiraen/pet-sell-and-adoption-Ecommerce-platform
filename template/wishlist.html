@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+    <!-- Start Wishlist  -->
+    <div class="wishlist-box-main">
+        <div class="container">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Product</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Unit Price </th>
+                                    <th>Stock</th>
+                                    <th></th>
+                                    <th>Add Item</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in wishlist_items %}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="thumbnail-img">
+                                        <a href="{% url 'product_details' item.product.id %}">
+                                            <img src="{{ item.product.product_photos.url }}" alt="{{ item.product.product_name }}">
+                                        </a>
+                                        <div>
+                                            <p><a href="{% url 'product_details' item.product.id %}">{{ item.product.product_name }}</a></p>
+                                            <small>Price: ${{ item.product.price }}</small>
+                                        </div>
+                                    </td>
+                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td class="price-pr">
+                                        <p>₹{{ item.product.price }}</p>
+                                    </td>
+                                    <td class="quantity-box">{{ item.product.product_status }}</td>
+                                    <td></td>
+                                    <td class="add-pr">
+                                        {% if item.product.product_status == 'Stock Out' %}
+                                            <a class="cart" href="#" style="background-color: red;">Sold Out</a>
+                                        {% else %}
+                                            <a class="btn hvr-hover" href="{% url 'add_to_cart' item.product.id %}">Add to Cart</a>
+                                        {% endif %}
+                                        
+                                    </td>
+                                    <td class="remove-pr">
+                                        <a class="btn hvr-hover" href="{% url 'remove_from_wishlist' item.id %}">Remove</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Wishlist -->
+
+    
+
+    {% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/order_history.css' %}">
+
+<div class="order-history-container">
+    {% if messages %}
+    <div class="messages" style="color: black;">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+    <h1>My Orders</h1>
+    <form method="GET">
+        <label for="status" style="color: black;">Filter by Status:</label>
+        <select name="status" id="status" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option value="Order Processing" {% if status_filter == "Order Processing" %}selected{% endif %}>Order Processing</option>
+            <option value="confirm" {% if status_filter == "confirm" %}selected{% endif %}>confirm</option>
+            <option value="Cancelled" {% if status_filter == "Cancelled" %}selected{% endif %}>Cancelled</option>
+            <option value="Delivered" {% if status_filter == "Delivered" %}selected{% endif %}>Delivered</option>
+        </select>
+    </form>
+    <hr style="background-color: black;">
+    <ul class="order-list">
+        {% for order in orders %}
+        <li class="order-item">
+            {% for item in order.items.all %}
+            <img src="{{ item.product.product_photos.url }}" alt="{{ item.product.product_name }}" class="product-image">
+            <div class="order-details">
+                <p>{{ item.product.product_name }}</p>
+                <p>Price: ${{ item.product.price }}</p>
+                {% if item.product.discount > 0 %}
+                <p>Discounted Price: ${{ item.product.discounted_price }}</p>
+                {% endif %}
+                <p>
+                    Address: {{ address.building_name }}, {{ address.area }}, {{ address.city }}
+                </p>
+                <!-- <p>Category: {{ item.product.get_category_display }}</p> -->
+                <p>Status: {{ order.status }}</p>
+        
+                {% if order.status != "Cancelled" and order.status != "Refund Completed" %}
+                    <form method="post" action="{% url 'cancel_order' order.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="cancel-button">Cancel Order</button>
+                    </form>
+                {% elif order.status == "Cancelled" %}
+                    <p>Cancelled on {{ order.cancellation_date }}</p>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </li>
+        {% endfor %}
+        
+    </ul>
+</div>
+
+
+{% endblock %}

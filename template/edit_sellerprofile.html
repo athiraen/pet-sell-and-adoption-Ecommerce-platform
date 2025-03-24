@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/pfs.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit_spro.css' %}">
+
+<div class="profile-info">
+    <h1 style="text-align: center;">Edit Profile</h1>
+    <div class="msg">
+        {% for message in messages %}
+            <h3 style="font-size: 18px;color: rgb(47, 217, 24);">
+                {{ message }}
+            </h3>
+        {% endfor %}
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {% if profile.sellerprofile_picture %}
+            <img src="{{ profile.sellerprofile_picture.url }}" alt="seller Profile Picture" width="150">
+        {% else %}
+            <p> no profile photo </p>
+        {% endif %}
+
+        <div>
+            <label for="id_sellerprofile_picture">Change Profile Picture:</label><br>
+            <input type="file" name="sellerprofile_picture" id="id_sellerprofile_picture">
+        </div>
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" id="id_username" class="form-control" value="{{ seller.seller_username }}">
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            <input type="email" name="email" id="id_email" class="form-control" value="{{ seller.seller_email }}">
+        </div>
+        <div class="buttonupdate" >
+        <button type="submit" class="btn btn-primary" >Update</button>
+    </div>
+    </form>
+
+
+</div>
+
+
+{% endblock %}
+

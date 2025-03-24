@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="GET" style="margin-left: 200px;margin-top: 20px;">
+    <label for="status" style="color: black;">Filter by Status:</label>
+    <select name="status" id="status" onchange="this.form.submit()">
+        <option value="">All</option>
+        <option value="Pending" {% if status_filter == "Pending" %}selected{% endif %}>Pending</option>
+        <option value="Approved" {% if status_filter == "Approved" %}selected{% endif %}>Approved</option>
+        <option value="Rejected" {% if status_filter == "Rejected" %}selected{% endif %}>Rejected</option>
+        <option value="Delivered" {% if status_filter == "Delivered" %}selected{% endif %}>Delivered</option>
+    </select>
+</form>
+<div class="small-container cart-page">
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}" style="color: black;">
+                {{ message }}
+            </div>
+            {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<div class="container mt-5">
+    <h2>My Adoption Requests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Pet Photo</th>
+                <th>Request Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+                {% if request.donation %}  {# Ensure donation exists #}
+                    <tr>
+                        <td>{{ request.donation.pet_name }}</td>
+                        <td>
+                            {% if request.donation.pet_photos %}
+                                <img src="{{ request.donation.pet_photos.url }}" alt="Pet Photo" style="width: 100px; height: 100px;">
+                            {% else %}
+                                No Image Available
+                            {% endif %}
+                        </td>
+                        <td>{{ request.request_date }}</td>
+                        <td>{{ request.status }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">No donation details available.</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

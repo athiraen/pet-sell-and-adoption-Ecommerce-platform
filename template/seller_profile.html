@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/pfs.css' %}">
+<link rel="stylesheet" href="{% static 'css/sprofile.css' %}">
+
+<div class="profile-info">
+    <h1 style="text-align: center;">My Profile</h1>
+
+    <div class="user-profile-image-box">
+    
+        {% if profile.sellerprofile_picture %}
+            <img style="border-radius: 25%; margin-bottom: 10px;" src="{{ profile.sellerprofile_picture.url }}" alt="seller Profile Picture" width="150">
+        {% else %}
+            <img src="{% static 'img/default.jpg.png' %}" alt="Default seller Profile Picture" width="150">
+        {% endif %}
+        
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }} 
+        
+            <div class="msg">
+                {% for message in messages %}
+                    <h3 style="font-size: 18px;color: rgb(47, 217, 24); ">{{ message }}</h3>
+                {% endfor %}
+            </div>
+        </form>
+    
+
+    <div class="user-info">
+
+        <div class="label-data">
+            <div class="label">Username:</div>
+            <div class="data">{{ user.username }}{{ seller.seller_username }}</div>
+        </div>
+        <div class="label-data">
+            <div class="label">Email:</div>
+            <div class="data">{{ seller.seller_email }}</div>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <a href="{% url 'edit_sellerprofile' %}" class="btn btn-success btn-sm" style="width: 100px;">Edit</a>
+    </div>
+</div>
+
+{% endblock %}

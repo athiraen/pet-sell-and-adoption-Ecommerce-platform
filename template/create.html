@@ -1,0 +1,117 @@
+{% extends 'base.html' %}  
+{% block content %} 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/create.css' %}">
+
+<div class="order-container">
+    <h2>Confirm Your Order</h2>
+
+    <!-- Cart Items Section -->
+    <div class="section" id="cart-items">
+        <h3>Product Details:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Photo</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.product_name }}</td>
+                    <td>
+                        {% if item.product.product_photos %}
+                        <img src="{{ item.product.product_photos.url }}" alt="Product Photo">
+                        {% endif %}
+                    </td>
+                    <td>₹{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₹{{ item.product.price|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="total-price"><strong>Total Price: ₹{{ total_price }}</strong></p>
+    </div>
+
+    <!-- Payment Details Section -->
+    <div class="section" id="payment-details">
+        <h3>Payment Details</h3>
+        <form method="post" id="payment-form">
+            {% csrf_token %}
+            <label for="payment-method">Select Payment Method:</label>
+            <select name="payment_method" id="payment-method" onchange="toggleCardDetails()">
+                <option value="credit_card">Cash on Delivery</option>
+
+            </select>
+
+</div>
+      <hr>
+    <!-- Address Selection -->
+    <div class="section" id="address-selection">
+        <h3>Select Address</h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-8">
+            <label for="address">Choose Address:</label>
+            <select name="address" id="address">
+                {% for address in addresses %}
+                <option value="{{ address.id }}">
+                    {{ address.building_name }}, {{ address.area }}, {{ address.city }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="col-lg-4">
+            <a href="{% url 'add_address' %}" class="btn">Add New Address</a>
+        </div>
+        </div>
+            <button type="submit" class="confirm-btn">Confirm Order</button>
+        </form>
+    </div>
+
+    
+</div>
+
+
+
+<script>
+    // Initialize Stripe.js with your publishable key
+    const stripe = Stripe("your-publishable-key");
+    const elements = stripe.elements();
+    const cardElement = elements.create("card");
+    cardElement.mount("#card-element");
+
+    // Show/hide card details based on the selected payment method
+    function toggleCardDetails() {
+        const paymentMethod = document.getElementById("payment-method").value;
+        const cardInfoDiv = document.getElementById("credit-card-info");
+        cardInfoDiv.style.display = paymentMethod === "credit_card" || paymentMethod === "debit_card" ? "block" : "none";
+    }
+
+    // Handle the form submission
+    const form = document.getElementById("payment-form");
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const {paymentIntent, error} = await stripe.confirmCardPayment("{{ client_secret }}", {
+            payment_method: {
+                card: cardElement,
+            },
+        });
+        if (error) {
+            alert("Payment failed: " + error.message);
+        } else {
+            alert("Payment successful!");
+            form.submit();
+        }
+    });
+</script>
+
+{% endblock %}

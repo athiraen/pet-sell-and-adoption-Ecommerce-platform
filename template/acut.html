@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2"> 
+                <img src="{% static 'img/kitty2.png' %}" width="100%">
+            </div>
+            <div class="col-2">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <span onclick="login()">Login</span>
+                        <span onclick="register()">Register</span>
+                        <hr id="Indicator">
+                    </div>
+
+                    <!-- Display messages -->
+                    {% if messages %}
+                        <div class="messages">
+                            {% for message in messages %}
+                                <div class="message {{ message.tags }}">{{ message }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Login Form -->
+                    <form id="LoginForm" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" name="usern" placeholder="Username">
+                        <input type="password" name="passwd" placeholder="Password">
+                        <button type="submit" name="login" class="btn">Login</button>
+                        <a href="">Forget Password</a>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="RegForm" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="text" name="usern" placeholder="Username">
+                        <input type="email" name="em_ail" placeholder="Email">
+                        <input type="password" name="passwd" placeholder="Password">
+                        <input type="file" name="sellerprofile_picture" id="id_profile_picture">
+
+                        <button type="submit" name="register" class="btn">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Javascript for Toggle Forms -->
+<script>
+    var LoginForm = document.getElementById("LoginForm");
+    var RegForm = document.getElementById("RegForm");
+    var Indicator = document.getElementById("Indicator");
+
+    function register() {
+        RegForm.style.transform = "translatex(0px)";
+        LoginForm.style.transform = "translatex(0px)";
+        Indicator.style.transform = "translateX(100px)";
+    }
+
+    function login() {
+        RegForm.style.transform = "translatex(300px)";
+        LoginForm.style.transform = "translatex(300px)";
+        Indicator.style.transform = "translate(0px)";
+    }
+</script>
+
+{% endblock %}

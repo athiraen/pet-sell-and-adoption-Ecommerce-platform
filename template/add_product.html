@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/add_product.css' %}">
+
+<div class="container">
+    <div class="text-center mt-5">
+        <h2>Add a New Product</h2>
+    </div>
+    <div class="col-sm-6 mx-auto bg-white p-4 shadow rounded">
+        {% if form.errors %}
+            <div class="alert alert-danger">{{ form.errors }}</div>
+        {% endif %}
+        {% if message %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+        <form action="" method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm mx-auto" style="max-width: 500px;">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_product_photos">
+                    <p>Pet Photo:</p>
+                    <img 
+                        id="preview" 
+                        src="{% if form.instance.product_photos %}{{ form.instance.product_photos.url }}{% else %}{% static 'img/cameraicon.png' %}{% endif %}" 
+                        alt="Upload Icon" 
+                        style="width: 100px; height: 100px; cursor: pointer; margin-left: 100px;" 
+                        onclick="document.getElementById('id_pet_photos').click();">
+                </label>
+                <input type="file" id="id_product_photos" name="product_photos" onchange="previewImage(event)" style="display: none;">
+            </div>
+            
+            <div class="form-group">
+                {{ form.details.label_tag }}
+                {{ form.details }}
+            </div>
+            <div class="form-group">
+                {{ form.product_name.label_tag }}
+                {{ form.product_name }}
+            </div>
+            <div class="form-group">
+                {{ form.price.label_tag }}
+                {{ form.price }}
+            </div>
+            <div class="form-group">
+                {{ form.category.label_tag }}
+                {{ form.category }}
+            </div>
+            <div class="form-group">
+                {{ form.breed.label_tag }}
+                {{ form.breed }}
+            </div>
+            <div class="form-group">
+                {{ form.age.label_tag }}
+                {{ form.age }}
+            </div>
+            <div class="form-group">
+                {{ form.gender.label_tag }}
+                {{ form.gender }}
+            </div>
+            <div class="form-group">
+                {{ form.color.label_tag }}
+                {{ form.color }}
+            </div>
+            <div class="form-group">
+                {{ form.is_vaccinated.label_tag }}
+                {{ form.is_vaccinated }}
+            </div>
+            
+            
+            
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% if data %}
+<div class="container mt-5">
+    <div class="col-sm-10 mx-auto bg-white p-4 shadow rounded">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Product Name</th>
+                    <th>Photo</th>
+                    <th>Price</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="results-body">
+                {% for product in data %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ product.product_name }}</td>
+                        <td>
+                            {% if product.product_photos %}
+                               <img src="{{ product.product_photos.url }}" alt="{{ product.product_name }}" style="width: 80px; height: auto;">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ product.price }}</td>
+                        <td><a href="{% url 'edit_data' pk=product.id %}" class="btn btn-warning btn-sm">Edit</a></td>
+                        <td><a href="{% url 'delete_data' pk=product.id %}" class="btn btn-warning btn-sm">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    function previewImage(event) {
+    const fileInput = event.target;
+    const previewContainer = document.getElementById('preview-images');
+
+    // Clear the previous previews
+    previewContainer.innerHTML = '';
+
+    if (fileInput.files) {
+        Array.from(fileInput.files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.width = "100px";
+                img.style.height = "100px";
+                img.style.marginRight = "10px";
+                previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+}
+
+function previewImage(event) {
+    const fileInput = event.target;
+    const preview = document.getElementById('preview');
+
+    if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.width = "100px";
+            preview.style.height = "100px";
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+    }
+}
+
+</script>
+
+{% endblock %}

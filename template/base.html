@@ -1,0 +1,296 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Site Metas -->
+    <title>Freshshop - Ecommerce Bootstrap 4 HTML Template</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/boot.min.css' %}">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'css/pets.css' %}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/coms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootnav.css' %}">
+
+    <!-- [if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif] -->
+
+</head>
+
+<body>
+    <!-- Start Main Top -->
+    <div class="main-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="right-phone-box">
+                        <p>Call US :- <a href="#"> +91 67894 56342</a></p>
+                    </div>
+                    <div class="our-link">
+                        <ul>
+                            <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
+                            <li><a href="#"><i class="fas fa-headset"></i> Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="text-slid-box">
+                        <div id="offer-box" class="carouselTicker">
+                            <ul class="offer-box">
+                                <li>
+                                    <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT80
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> 50% - 80% off on Dogs
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> Off 10%! Shop Cat
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> Off 50%! Shop Now
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> Off 10%! Shop pets
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> 50% - 80% off on birds
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT30
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> Off 50%! Shop Now 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Top -->
+
+    <!-- Start Main Top -->
+    <header class="main-header">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
+            <div class="container">
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="about">
+                        <img src="{% static 'img/logo123.png' %}" style="width: 200px;" class="logo" alt="">
+                    </a>
+    
+                    <!-- Toggle Button for Mobile -->
+                    <button class="navbar-toggler" type="button" onclick="menutoggle()">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <!-- End Header Navigation -->
+    
+                <!-- Collapsible Menu -->
+                <div class="collapse navbar-collapse" id="MenuItems">
+                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
+      
+                        <li><a href="{% url 'index' %}">Home</a></li>
+    
+                        {% if request.session.seller_id %}
+                            <li><a href="{% url 'addproduct' %}">Sell Products</a></li>
+                            <li><a href="{% url 'adddonation' %}">Donation</a></li>
+                            <li><a href="{% url 'selleraccount' %}">Account</a></li>
+                            <li><a href="{% url 'logout' %}">Sign Out</a></li>
+    
+                        {% elif user.is_authenticated %}
+                            <li><a href="{% url 'product' %}">Products</a></li>
+                            <li><a href="{% url 'adoption' %}">Adoption</a></li>
+                            <li><a href="{% url 'myaccount' %}">Account</a></li>
+                            <li><a href="{% url 'view_cart' %}"><i class="fa fa-shopping-bag"> </i> My Cart</a></li>
+                            <li><a href="{% url 'wishlist' %}"><i class="fas fa-heart" style="font-size:18px;color:red;"> </i> Wishlist</a></li>
+                            <li><a href="{% url 'logout' %}">Sign Out</a></li>
+    
+                        {% else %}
+                            <li><a href="{% url 'product' %}">Products</a></li>
+                            <li><a href="{% url 'adoption' %}">Adoption</a></li>
+                            <li><a href="{% url 'sign_up' %}">Sign-Up</a></li>
+                            <li><a href="{% url 'log_in' %}">Log-In</a></li>
+                            <li><a href="{% url 'account' %}">Become A Seller</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+ 
+    
+                
+                        
+            <!-- Start Side Menu -->
+            <div class="side">
+                <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+                <li class="cart-box">
+                    <ul class="cart-list">
+                        <li>
+                            <a href="#" class="photo"><img src="{% static 'img/about-1.jpg' %}" class="cart-thumb" alt="" /></a>
+                            <h6><a href="#">Delica omtantur </a></h6>
+                            <p>1x - <span class="price">$80.00</span></p>
+                        </li>
+                        <li>
+                            <a href="#" class="photo"><img src="{% static 'img/about-1.jpg' %}" class="cart-thumb" alt="" /></a>
+                            <h6><a href="#">Omnes ocurreret</a></h6>
+                            <p>1x - <span class="price">$60.00</span></p>
+                        </li>
+                        <li>
+                            <a href="#" class="photo"><img src="{% static 'img/about-1.jpg' %}" class="cart-thumb" alt="" /></a>
+                            <h6><a href="#">Agam facilisis</a></h6>
+                            <p>1x - <span class="price">$40.00</span></p>
+                        </li>
+                        <li class="total">
+                            <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+                            <span class="float-right"><strong>Total</strong>: $180.00</span>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <!-- End Side Menu -->
+        </nav>
+        <!-- End Navigation -->
+    </header>
+    <!-- End Main Top -->
+
+    <!-- Start Top Search -->
+    <div class="top-search">
+        <div class="container">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <input type="text" class="form-control" placeholder="Search">
+                <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
+            </div>
+        </div>
+    </div>
+    <!-- End Top Search -->
+
+    
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- Footer Start -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and ios mobile phone.</p>
+                    <div class="app-logo">
+                        <img src="{% static 'img/play-store.png' %}">
+                        <img src="{% static 'img/app-store.png' %}">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="{% static 'img/logo123.png' %}">
+                    <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.
+                    </p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow Us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>Youtube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2024 - Athira</p>
+        </div>
+    </div>
+
+    <!-- javascript -->
+
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "400px"
+            }
+            else {
+                MenuItems.style.maxHeight = "0px"
+            }
+        }
+    </script>
+
+
+    <!-- End Footer  -->
+
+    <!-- Start copyright  -->
+    <div class="footer-copyright">
+        <p class="footer-company">All Rights Reserved. &copy; 2024 <a href="#">Fun&Fur</p>
+    </div>
+    <!-- End copyright  -->
+
+    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+    <!-- ALL JS FILES -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"defer></script>
+    <script src="{% static 'js/popper.min.js' %}"defer></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"defer></script>
+    <!-- ALL PLUGINS -->
+    <script src="{% static 'js/jquery.superslides.min.js' %}"defer></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"defer></script>
+    <script src="{% static 'js/inewsticker.js' %}"defer></script>
+    <script src="{% static 'js/bootsnav.js' %}"defer></script>
+    <script src="{% static 'js/images-loded.min.js' %}"defer></script>
+    <script src="{% static 'js/isotope.min.js' %}"defer></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"defer></script>
+    <script src="{% static 'js/baguetteBox.min.js' %}"defer></script>
+    <script src="{% static 'js/form-validator.min.js' %}"defer></script>
+    <script src="{% static 'js/contact-form-script.js' %}"defer></script>
+    <script src="{% static 'js/custom.js' %}"defer></script>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script> 
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script> 
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/sign_up.css' %}">
+
+<!-- Sign-Up Form Section -->
+
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <img src="{% static 'img/kitty.png' %}" >
+            </div>
+            <div class="col-2">
+                <form action="sign_up" method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm mx-auto" >
+                    <h1 class="text-center mb-4" style=" color: #000;">Sign Up</h1>
+            
+                    {% csrf_token %}
+                    <div>
+                        {% for message in messages %}
+                        <h3 style="font-size: 18px; color: red;">
+                            {{message}}
+                        </h3>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Uname">Name:</label>
+                        <input type="text" class="form-control" id="Fname" name="Fname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Uname">Username:</label>
+                        <input type="text" class="form-control" id="Uname" name="Uname" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd" name="password" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="pwd">Confirm Password:</label>
+                        <input type="password" class="form-control" id="pwd" name="cpassword" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="id_profile_picture">Add Profile Picture:</label><br>
+                        <input type="file" name="profile_picture" id="id_profile_picture">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100" style="background-color: #06BBCC;color: black;">Sign Up</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+{% endblock %}

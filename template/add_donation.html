@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/add_donation.css' %}">
+
+<div class="container">
+    <div class="text-center mt-5">
+        <h2>Add a New Product</h2>
+    </div>
+    <div class="col-sm-6 mx-auto bg-white p-4 shadow rounded">
+        {% if form.errors %}
+            <div class="alert alert-danger">{{ form.errors }}</div>
+        {% endif %}
+        {% if message %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+        <form action="" method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm mx-auto" style="max-width: 500px;">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_pet_photos">
+                    <p>Pet Photo:</p>
+                    <img 
+                        id="preview" 
+                        src="{% if form.instance.pet_photos %}{{ form.instance.pet_photos.url }}{% else %}{% static 'img/cameraicon.png' %}{% endif %}" 
+                        alt="Upload Icon" 
+                        style="width: 100px; height: 100px; cursor: pointer; margin-left: 100px;" 
+                        onclick="document.getElementById('id_pet_photos').click();">
+                </label>
+                {{ form.pet_photos }}
+                <div id="preview-images" style="margin-top: 10px;"></div>
+            </div>
+            <div class="form-group">
+                {{ form.pet_details.label_tag }}
+                {{ form.pet_details }}
+            </div>
+            <div class="form-group">
+                {{ form.pet_name.label_tag }}
+                {{ form.pet_name }}
+            </div>
+            <div class="form-group">
+                {{ form.reason.label_tag }}
+                {{ form.reason }}
+            </div>
+            <div class="form-group">
+                {{ form.pet_category.label_tag }}
+                {{ form.pet_category }}
+            </div>
+            <div class="form-group">
+                {{ form.pet_breed.label_tag }}
+                {{ form.pet_breed }}
+            </div>
+            <div class="form-group">
+                {{ form.pet_age.label_tag }}
+                {{ form.pet_age }}
+            </div>
+            <div class="form-group">
+                {{ form.pet_gender.label_tag }}
+                {{ form.pet_gender }}
+            </div>
+            <div class="form-group">
+                {{ form.pet_color.label_tag }}
+                {{ form.pet_color }}
+            </div>
+            <div class="form-group">
+                {{ form.vaccinated.label_tag }}
+                {{ form.vaccinated }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% if data %}
+<div class="container mt-5">
+    <div class="col-sm-10 mx-auto bg-white p-4 shadow rounded">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Id</th>
+                    <th>Product Name</th>
+                    <th>Photo</th>
+                    <th>Reason</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="results-body">
+                {% for product in data %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ product.pet_name }}</td>
+                        <td>
+                            {% if product.pet_photos %}
+                                <img src="{{ product.pet_photos.url }}" alt="{{ product.pet_name }}" style="width: 80px; height: auto;">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>{{ product.reason }}</td>
+                        <td><a href="{% url 'edit_donation' pk=product.id %}" class="btn btn-warning btn-sm">Edit</a></td>
+                        <td><a href="{% url 'delete_donation' pk=product.id %}" class="btn btn-danger btn-sm">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    // Handle image preview for file input
+    document.getElementById('id_pet_photos').addEventListener('change', function (event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+
+{% endblock %}

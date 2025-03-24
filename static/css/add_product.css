@@ -1,0 +1,144 @@
+
+
+
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Form Styling */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+form h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+   
+}
+
+input[type="text"],
+textarea,
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 1px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: #f56c42;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #d9542d;
+}
+
+/* Preview Image Styling */
+#preview {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: border-color 0.3s;
+}
+
+#preview:hover {
+    border-color: #f56c42;
+}
+
+/* Table Styling */
+.table {
+    margin-top: 30px;
+}
+
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table img {
+    border-radius: 8px;
+}
+
+thead.thead-dark {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Search Bar */
+#search-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+/* Buttons */
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Alerts */
+.alert {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+

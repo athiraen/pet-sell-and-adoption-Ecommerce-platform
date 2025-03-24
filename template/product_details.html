@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/pr_details.css' %}">
+
+<!-- Single Product Container -->
+<div class="container single-product">
+    <div class="row">
+        <!-- Left: Product Image & Thumbnails -->
+        <div class="col-lg-6">
+            <div class="product-main-image">
+                {% if product.product_photos %}
+                <img id="mainImage" src="{{ product.product_photos.url }}" alt="{{ product.product_name }}" class="img-fluid">
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Right: Product Details -->
+        <div class="col-lg-6 product-details">
+            <p><a href="{% url 'index' %}">🏠 Home</a> / Product</p>
+            <h1>{{ product.product_name }}</h1>
+
+            <!-- Pricing with Discount -->
+            <h4>
+                <!-- <span class="discounted-price">₹{{ product.discounted_price }}</span>
+                <span class="original-price">₹{{ product.price }}</span>
+                <span class="discount">-{{ product.discount }}% Off</span> -->
+                <span class="price" style="color: #06BBCC;">₹{{ product.price }}</span>
+            </h4>
+
+            <!-- Add to Cart or Sold Out -->
+            {% if product.product_status == 'Stock Out' %}
+            <button class="sold-out">❌ Sold Out</button>
+            {% else %}
+            <a href="{% url 'add_to_cart' product.id %}" class="cart-btn">🛒 Add to Cart</a>
+            {% endif %}
+
+            <div class="row">
+            <!-- Product Attributes -->
+             <div class="col-lg-6">
+            <div class="product-attributes">
+                <h3>seller name:{{ seller.seller_username }}</h3>
+                <div class="attribute"><strong>Breed:</strong> {{ product.breed }}</div>
+                <div class="attribute"><strong>Age:</strong> {{ product.age }} years</div>
+                <div class="attribute"><strong>Gender:</strong> {{ product.gender }}</div>
+                <div class="attribute"><strong>Color:</strong> {{ product.color }}</div>
+                <div class="attribute"><strong>Vaccinated:</strong> 
+                    {% if product.is_vaccinated %} ✅ Yes {% else %} ❌ No {% endif %}
+                </div>
+            </div>
+        </div>
+            <!-- Delivery Information -->
+            <div class="col-lg-6">
+            <div class="delivery-info">
+                <h3>🚚 Delivery Information</h3>
+                <p>Delivery in 3-5 business days</p>
+                <p>Cash on Delivery (COD) available</p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for Image Switching -->
+<script>
+    function changeImage(smallImg) {
+        document.getElementById("mainImage").src = smallImg.src;
+    }
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Adoption Request Form</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% if messages %}
+        <ul class="mt-3">
+            {% for message in messages %}
+                <li class="alert alert-success">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h2>My Adoption Requests</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Pet name</th>
+            <th>Pet photo</th>
+            <th>Request Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in requests %}
+    <tr>
+        <td>{{ request.donation.pet_name }}</td>
+        
+        
+        {% if request.donation %}
+            <td>
+                <div>
+                    {% if request.donation.pet_photos %}
+                        <img src="{{ request.donation.pet_photos.url }}" alt="Pet Photo" style="width: 100px; height: 100px;">
+                    {% endif %}
+                    
+                </div>
+            </td>
+        {% endif %}
+        <td>{{ request.status }}</td>
+        <td>{{ request.request_date }}</td>
+    </tr>
+{% endfor %}
+
+    </tbody>
+</table>
+</div>
+{% endblock %}

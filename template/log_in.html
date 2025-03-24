@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+
+
+    <!-- log in Form Section -->
+
+    <div class="account-page">
+        <div class="container1">
+            <div class="row">
+                <div class="col-2">
+                    <img src="{% static 'img/catanddogs.png' %}" >
+                </div>
+                <div class="col-2" >
+                    <div class="container mt-5">
+                        <div class="con">
+                        <form action="log_in" method="POST">
+                            <h1 class="text-center mb-4">Log In</h1>
+                            {% csrf_token %}
+                            <div class="msg">
+                                {% for message in messages %}
+                                <h3 style="font-size: 18px;color: red; ">
+                                    {{message}}
+                                </h3>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="Uname" style="color: black;">Username:</label>
+                                <input type="text" class="form-control" id="Uname" name="Uname" required>
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="pwd" style="color: black;">Password:</label>
+                                <input type="password" class="form-control" id="pwd" name="password" required>
+                            </div>
+                            <button type="submit">Log In</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

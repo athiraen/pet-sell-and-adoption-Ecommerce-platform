@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+<!-- Start Slider -->
+<div id="slides-shop" class="cover-slides">
+    <ul class="slides-container">
+        <li class="text-center">
+            <img src="{% static 'img/fun-dog5.jpg' %}" alt="" style="height: 100px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20" ><strong >Welcome To <br> Fun & Fur</strong></h1>
+                        <p class="m-b-40">Discover a seamless way to buy, sell, and adopt pets. Connect with trusted <br> pet lovers in real time to ensure every pet finds a loving home. </p>
+                        <p><a class="btn hvr-hover" href="{% url 'product' %}">Shop Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="{% static 'img/fun-cat.jpg' %}" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20"><strong>Welcome To <br> Fun & Fur</strong></h1>
+                        <p class="m-b-40">Discover a seamless way to buy, sell, and adopt pets. Connect with trusted <br> pet lovers in real time to ensure every pet finds a loving home.</p>
+                        <p><a class="btn hvr-hover" href="{% url 'product' %}">Shop Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="{% static 'img/fun-cat3.jpg' %}" alt="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="m-b-20" ><strong>Welcome To <br> Fun & Fur</strong></h1>
+                        <p class="m-b-40">Discover a seamless way to buy, sell, and adopt pets. Connect with trusted <br> pet lovers in real time to ensure every pet finds a loving home.</p>
+                        <p><a class="btn hvr-hover" href="{% url 'product' %}">Shop Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div class="slides-navigation">
+        <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+        <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+    </div>
+</div>
+<!-- End Slider -->
+
+
+    <!-- Start Categories  -->
+    <h1 style="text-align: center; margin-top: 40px; color: black; font-weight: 700; font-size: 32px;">Categories</h1>
+    <div class="categories-shop">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="shop-cat-box">
+                        <img class="img-fluid" src="{% static 'img/about-1.jpg' %}" alt="" />
+                        <a class="btn hvr-hover" href="{% url 'dog_products_view' %}">Dogs</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="shop-cat-box">
+                        <img class="img-fluid" src="{% static 'img/Cat-2.jpg' %}" alt="" />
+                        <a class="btn hvr-hover" href="{% url 'cat_products_view' %}">Cats</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="shop-cat-box">
+                        <img class="img-fluid" style="height: 265px;" src="{% static 'img/birds.jpg' %}" alt="" />
+                        <a class="btn hvr-hover" href="{% url 'bird_products_view' %}">Birds</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Categories -->
+	
+	<div class="box-add-products">
+		<div class="contai">
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="offer-box-products" style=" margin-left: 20PX; width: 450PX;">
+						<img class="img-fluid" style="width: 850PX"  src="{% static 'img/fun-dog.jpg' %}" alt="" />
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="offer-box-products" style=" margin-left: 10PX;width: 450PX">
+						<img class="img-fluid" style="width: 450PX"  src="{% static 'img/fun-dog2.jpg' %}" alt="" />
+					</div>
+				</div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="offer-box-products" style=" margin-left: 10PX;width: 450PX">
+						<img class="img-fluid"  style="width: 450PX" src="{% static 'img/fun-cat2.jpg' %}" alt="" />
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+    
+
+  <!-- About Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <!-- About Text Section -->
+            <div class="col-lg-6 hidden fade-in-up" id="about-text">
+                <h2 class="about-heading">About Us</h2>
+                <h1 class="mb-4">Welcome to <span class="text-primary text-uppercase">FUN & FUR</span></h1>
+                <p class="about-description">
+                    Welcome to <b>FUN & FUR</b>, your trusted platform for pet adoption and pet-related products! Our mission is to connect loving families with pets in need of a forever home while also providing high-quality pet products to ensure their happiness and well-being.
+                </p>
+                <ul class="about-list">
+                    <li>🐾 Browse and adopt adorable pets looking for a home</li>
+                    <li>🐾 Explore a wide range of pet products for dogs, cats, and birds</li>
+                    <li>🐾 Easily request adoptions and track adoption statuses</li>
+                    <li>🐾 Save your favorite pets and products to your wishlist</li>
+                </ul>
+                <p class="about-description">
+                    We are passionate about animal welfare and strive to create a seamless experience for pet lovers. Whether you're looking to adopt a furry friend or find the best products for your pets, we've got you covered!
+                </p>
+                <p class="about-highlight">Join us in making a difference—one adoption at a time. 🐶🐱🐦</p>
+                <p class="about-tagline">💙 Find. Adopt. Love. 💙</p>
+                <a class="btn btn-primary py-3 px-5 mt-2 hidden zoom-in" href="{% url 'product' %}">Explore More</a>
+            </div>
+
+            <!-- About Image Section -->
+            <div class="col-6 text-end hidden zoom-in" id="image1">
+                <img class="img-fluid rounded about-img" src="{% static 'img/fun-dog2.jpg' %}">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- About End -->
+    
+
+
+    <!-- Start Instagram Feed  -->
+    <div class="instagram-box">
+        <div class="main-instagram owl-carousel owl-theme">
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-dog.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-cat2.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-dog2.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-cat2.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-dog.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-dog4.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-dog2.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-dog4.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-dog2.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ins-inner-box">
+                    <img src="{% static 'img/fun-cat2.jpg' %}" alt="" />
+                    <div class="hov-in">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Instagram Feed  -->
+
+
+   {% endblock %}

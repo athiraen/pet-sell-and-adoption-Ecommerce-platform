@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Adoption Requests for Your Donations</h2>
+    <form method="GET">
+        <label for="status">Filter by Status:</label>
+        <select name="status" id="status" onchange="this.form.submit()">
+            <option value="">All</option>
+            <option value="Pending" {% if status_filter == "Pending" %}selected{% endif %}>Pending</option>
+            <option value="Approved" {% if status_filter == "Approved" %}selected{% endif %}>Approved</option>
+            <option value="Rejected" {% if status_filter == "Rejected" %}selected{% endif %}>Rejected</option>
+            <option value="Delivered" {% if status_filter == "Delivered" %}selected{% endif %}>Delivered</option>
+        </select>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Pet Name</th>
+                <th>Pet Photo</th>
+                <th>Message</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Request Date</th>
+                <th>Status Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in adoption_requests %}
+                <tr>
+                    <td>{{ request.user.username }}</td>
+                    <td>{{ request.donation.pet_name }}</td>
+                    
+                    <td>
+                        {% if request.donation.pet_photos %}
+                            <img src="{{ request.donation.pet_photos.url }}" alt="Pet Photo" style="width: 100px; height: 100px;">
+                        {% else %}
+                            No Photo
+                        {% endif %}
+                    </td>
+                    
+                    <td>{{ request.message }}</td>
+                    <td>{{ request.address }}</td>
+                    <td>{{ request.phone }}</td>
+                    <td>{{ request.status }}</td>
+                    <td>{{ request.request_date }}</td>
+                    <td>
+                        <a href="{% url 'update_order_statusre' request.id %}">Update Status</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="8">No adoption requests found for your donations.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
