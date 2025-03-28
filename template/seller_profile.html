@@ -2,10 +2,9 @@
 {% block content %}
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'css/pfs.css' %}">
-<link rel="stylesheet" href="{% static 'css/sprofile.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
-<div class="profile-info">
+<div class="profile">
     <h1 style="text-align: center;">My Profile</h1>
 
     <div class="user-profile-image-box">
@@ -43,7 +42,7 @@
     </div>
 
     <div class="mt-2">
-        <a href="{% url 'edit_sellerprofile' %}" class="btn btn-success btn-sm" style="width: 100px;">Edit</a>
+        <a href="{% url 'edit_sellerprofile' %}" class="btn btn-success btn-sm" >Edit</a>
     </div>
 </div>
 
