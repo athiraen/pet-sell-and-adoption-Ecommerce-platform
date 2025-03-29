@@ -452,27 +452,28 @@ class Deletedonationview(View):
 def adoption_request(request, donation_id):
     if not request.user.is_authenticated:
         return redirect('log_in')
-    
 
     products = get_object_or_404(DonationModel, id=donation_id)
-    if AdoptionRequest.objects.filter(donation=products, user=request.user).exists():
-        messages.error(request, "You have already requested adoption for this pet.")
-        return redirect('request_history') 
+    
     if request.method == "POST":
+        if AdoptionRequest.objects.filter(donation=products, user=request.user).exists():
+            messages.error(request, "You have already requested adoption for this pet.")
+            return redirect('request_history')  # Redirect to request history page
+
         form = AdoptionRequestForm(request.POST)
         if form.is_valid():
             adoption_request = form.save(commit=False)
             adoption_request.user = request.user  
-            adoption_request.donation = products  # Link the request to the correct donation
+            adoption_request.donation = products  
             adoption_request.save()
 
             messages.success(request, "Your adoption request has been submitted successfully!")
-            return redirect('adoption_request', donation_id=products.id)
+            return redirect('request_history')  # Redirect to avoid duplicate submission
+
     else:
         form = AdoptionRequestForm(initial={
-            'name': request.user.first_name,  # Pre-fill user name
-            'email': request.user.email,  # Pre-fill email
-            
+            'name': request.user.first_name,  
+            'email': request.user.email,  
         })
 
     user_requests = AdoptionRequest.objects.filter(user=request.user)
@@ -480,8 +481,9 @@ def adoption_request(request, donation_id):
     return render(request, 'adoption_request.html', {
         'form': form,
         'requests': user_requests,
-        'donation': products  # Pass donation details for display if needed
+        'donation': products
     })
+
 
 def seller_adoption_requests(request):
     # Get the current logged-in seller
